@@ -2,6 +2,7 @@
 import {Button, Form, FormItem, Input, Select, SelectOption} from "ant-design-vue";
 import {PropType} from "vue";
 import {Repo} from "../interface/universe-tree";
+import {ChangeEvent} from "ant-design-vue/es/_util/EventInterface";
 
 const props = defineProps({
   owner: {
@@ -36,19 +37,19 @@ const emit = defineEmits<{
   'branch-changed': [string],
 }>()
 
-const onOwnerChanged = e => {
-  emit('update:owner', e.target.value)
-  emit('owner-changed', e.target.value)
+const onOwnerChanged = (e: ChangeEvent) => {
+  emit('update:owner', e.target.value!)
+  emit('owner-changed', e.target.value!)
 }
 
-const onRepoChanged = e => {
-  emit('update:repo', e)
-  emit('repo-changed', e)
+const onRepoChanged = (e: ChangeEvent) => {
+  emit('update:repo', e.target.value!)
+  emit('repo-changed', e.target.value!)
 }
 
-const onBranchChanged = e => {
-  emit('update:branch', e.target.value)
-  emit('branch-changed', e.target.value)
+const onBranchChanged = (e: ChangeEvent) => {
+  emit('update:branch', e.target.value!)
+  emit('branch-changed', e.target.value!)
 }
 
 </script>
