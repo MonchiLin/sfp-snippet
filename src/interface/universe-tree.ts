@@ -21,6 +21,12 @@ export interface UniverseTreeNodeContent {
   originalText: string,
 }
 
+export interface Repo {
+  name: string;
+  owner: string;
+  url: string;
+}
+
 export namespace UniverseTreeNode {
   /**
    * 判断节点是否可以选择
@@ -114,14 +120,15 @@ export namespace UniverseTreeNode {
    * @param node
    * @param deep - 深度, 根据深度缩进
    */
-  export const toString = (node: UniverseTreeNode, deep = 0): string => {
+  export const plain = (node: UniverseTreeNode, deep = 0): string => {
     let output = "";
     if (node.type === "directory") {
-      output += `-------------\n`;
-      output += `${node.path}\n`;
-      output += `-------------\n`;
-      output += node.children.map(i => toString(i)).join("\n");
+      if (node.path !== "/") {
+        output += "#".repeat(deep) + ` Folder: ${node.path}---------------\n`;
+      }
+      output += node.children.map(i => plain(i, deep + 1)).join("\n");
     } else {
+      output += "File: " + node.path + "\n";
       output += node.content!.text;
     }
 
@@ -144,7 +151,7 @@ export namespace UniverseTreeNode {
 
     // Recursively format children if it's a directory
     if (node.type === "directory" && node.children) {
-      const childIndent = indent + (lastChild ? '    ' : '│   ');
+      const childIndent = indent + (lastChild ? '  ' : '│ ');
       for (let i = 0; i < node.children.length; i++) {
         result += toHierarchical(node.children[i], childIndent, i === node.children.length - 1);
       }
