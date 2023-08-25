@@ -1,3 +1,0 @@
-export const Constants = {
-  githubPersonalAccessTokens: "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"
-}

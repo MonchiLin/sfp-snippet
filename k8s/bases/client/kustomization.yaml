@@ -1,5 +1,0 @@
-namespace: demo
-
-resources:
-  - ./client.yaml
-  - ./client-service.yaml

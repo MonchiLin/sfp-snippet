@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/** Fix antd vue icon not align */
+@layer base {
+  svg {
+    display: inline;
+    vertical-align: baseline;
+  }
+}
