@@ -27,6 +27,11 @@ watch(owner, () => {
   GithubDriver.repos(owner.value!)
     .then(res => {
       repos.value = res.data
+      // If repos not empty, set default repo
+      if (repos.value.length > 0) {
+        repo.value = repos.value[0].name
+        branch.value = repos.value[0].defaultBranch
+      }
     })
     .finally(() => {
       repoFetchLoading.value = false;
@@ -41,7 +46,7 @@ const onNodeSelected = (node: UniverseTreeNode) => {
 
 const getTree = () => {
   spinning.value = true;
-  GithubDriver.tree(owner.value, repo.value, "master")
+  GithubDriver.tree(owner.value, repo.value, branch.value)
       .then(res => {
         rootNode.value = res.data;
       })

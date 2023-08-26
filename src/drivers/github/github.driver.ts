@@ -263,7 +263,8 @@ export namespace GithubDriver {
             return {
               name: repo.name,
               url: repo.html_url,
-              owner: repo.owner.login
+              owner: repo.owner.login,
+              defaultBranch: repo.default_branch,
             } as Repo
           })
         }

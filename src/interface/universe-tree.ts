@@ -25,6 +25,7 @@ export interface Repo {
   name: string;
   owner: string;
   url: string;
+  defaultBranch: string;
 }
 
 export namespace UniverseTreeNode {

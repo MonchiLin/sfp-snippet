@@ -42,9 +42,9 @@ const onOwnerChanged = (e: ChangeEvent) => {
   emit('owner-changed', e.target.value!)
 }
 
-const onRepoChanged = (e: ChangeEvent) => {
-  emit('update:repo', e.target.value!)
-  emit('repo-changed', e.target.value!)
+const onRepoChanged = (e: string) => {
+  emit('update:repo', e)
+  emit('repo-changed', e)
 }
 
 const onBranchChanged = (e: ChangeEvent) => {
