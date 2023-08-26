@@ -3,7 +3,7 @@ import {computed, h, PropType, ref, watch} from "vue";
 import {Button, ButtonGroup, Modal} from "ant-design-vue";
 import {UniverseTreeNode} from "../interface/universe-tree";
 import HighlightjsRender from "./highlightjs-render.vue";
-import {CopyOutlined, GlobalOutlined} from "@ant-design/icons-vue";
+import {CopyOutlined, GlobalOutlined, CloseOutlined} from "@ant-design/icons-vue";
 import {Constants} from "../constants";
 import copy from 'copy-to-clipboard';
 
@@ -57,27 +57,38 @@ watch(() => props.visible, (newVal) => {
 
 <template>
   <Modal
-      destroyOnClose
-      :open="visible"
-      @cancel="$emit('update:visible', false)"
-      :footer="null"
-      title="Checkout"
+    destroyOnClose
+    :open="visible"
+    :footer="null"
+    title="Checkout"
   >
     <div class="flex flex-col gap-2">
       <ButtonGroup>
         <Button @click="goCarbon" :icon="h(GlobalOutlined)">Carbon</Button>
-        <Button @click="handleCopy" :icon="h(CopyOutlined)">{{copied ? 'Copied' : 'Copy'}}</Button>
+        <Button @click="handleCopy" :icon="h(CopyOutlined)">{{ copied ? 'Copied' : 'Copy' }}</Button>
       </ButtonGroup>
       <highlightjs-render :code="text"/>
     </div>
+    <template #closeIcon>
+      <div class="flex flex-row items-center justify-end">
+        <span class="pr-1 text-gray-300">Length: {{ text.length }}</span>
+        <CloseOutlined @click="$emit('update:visible', false)"/>
+      </div>
+    </template>
   </Modal>
 </template>
 
 <style>
 
 .ant-modal {
-    width: auto !important;
-    max-width: 80vw;
+  width: auto !important;
+  max-width: 80vw;
+}
+
+.ant-modal-close {
+  width: 300px !important;
+  background: white !important;
+  cursor: auto;
 }
 
 </style>
